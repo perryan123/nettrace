@@ -82,6 +82,7 @@ print_ip:
 			daddr, ntohs(pkt->l4.min.dport));
 		break;
 	case IPPROTO_ICMP:
+	case 50:
 		BUF_FMT("%s -> %s", saddr, daddr);
 		break;
 	default:
@@ -116,6 +117,11 @@ print_ip:
 		}
 		BUF_FMT("seq: %u", ntohs(pkt->l4.icmp.seq));
 		break;
+#if 1		
+	case 50:
+		BUF_FMT(" spi:0x%x seq:0x%x", ntohl(pkt->l4.espheader.spi), ntohl(pkt->l4.espheader.seq));
+		break;
+#endif
 	default:
 		break;
 	}
